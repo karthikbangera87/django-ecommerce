@@ -15,3 +15,12 @@ def all(request):
     context = {'all_products': all_products}
     template = 'product.html'
     return render(request, template, context)
+
+
+def single(request, slug):
+
+    print slug
+    all_products = Product.objects.all()
+    context = {'all_products': all_products}
+    template = 'product.html'
+    return render(request, template, context)

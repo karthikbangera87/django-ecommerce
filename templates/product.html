@@ -1,8 +1,25 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% for item in all_products %}
-{{ item.description }}
+<div class = "row">
+	<div class= "col-md-12">
+		{% for item in all_products %}
 
-{% endfor %}
+				
+				
+				{% for newitem in item.productimage_set.all %}
+					<div class= "col-md-3">
+					<img src= "{{MEDIA_URL}}{{ newitem.image}}" />
+					{{ item.title}}<br/>
+					{{ item.slug }}
+					</div>
+				{% endfor %}
+			
+			
+	
+		{% endfor %}
+	</div>
+</div>
+
+
 {% endblock %}
