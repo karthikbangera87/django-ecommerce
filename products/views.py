@@ -1,6 +1,14 @@
 from django.shortcuts import render
-from .models import Product
+from .models import Product,ProductImage
 # Create your views here.
+
+
+def search(request):
+    search_item = request.GET.get('q')
+    product = Product.objects.filter(title__icontains=search_item)
+    context = {"product": product}
+    template = 'search.html'
+    return render(request, template, context)
 
 
 def home(request):
@@ -19,8 +27,8 @@ def all(request):
 
 def single(request, slug):
 
-    print slug
-    all_products = Product.objects.all()
-    context = {'all_products': all_products}
-    template = 'product.html'
+    single_product = Product.objects.get(slug=slug)
+    images = ProductImage.objects.filter(product=single_product)
+    context = {'single_product': single_product, 'images': images}
+    template = 'single.html'
     return render(request, template, context)
