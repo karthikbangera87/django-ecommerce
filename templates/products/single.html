@@ -23,6 +23,13 @@
 				<img class='img-responsive' src="{{ MEDIA_URL }}{{ img.image }}" />
 		</div>
   		{% endif %}
- {% endfor %}
-
+{% endfor %}
+	<div class='col-sm-8'>
+	 <h1>{{ single_product.title }} <a href='{% url "update_cart" single_product.slug %}' class='pull-right'>Add to Cart</a></h1>
+	 <hr/>
+	 Price: {{ single_product.price }} <br/>
+	 Shipping: Free with $25+ purchase.
+	 <hr/>
+	{{ single_product.description|linebreaks }}
+	</div>
 {% endblock %}

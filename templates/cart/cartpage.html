@@ -16,12 +16,12 @@
 		<tfoot>
 		<tr>
 		<td></td>
-		<td>Total: {{ cart.total }}</td>
+		<td>Total: {{ cart_items.total }}</td>
 		</tr>
 		</tfoot>
 		{% for item in cart_items.products.all %}
 		<tr><td>{{item}}</td>
-		<td>{{item.price}}</td></tr>
+		<td>{{item.price}}</td><td><a href = '{% url "update_cart" item.slug %}'>Remove</a></td></tr>
 		{% endfor %}
 		</table>
 	</div>
