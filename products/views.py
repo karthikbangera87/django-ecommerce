@@ -21,7 +21,7 @@ def all(request):
 
     all_products = Product.objects.all()
     context = {'all_products': all_products}
-    template = 'product.html'
+    template = 'products/product.html'
     return render(request, template, context)
 
 
@@ -30,5 +30,5 @@ def single(request, slug):
     single_product = Product.objects.get(slug=slug)
     images = ProductImage.objects.filter(product=single_product)
     context = {'single_product': single_product, 'images': images}
-    template = 'single.html'
+    template = 'products/single.html'
     return render(request, template, context)
