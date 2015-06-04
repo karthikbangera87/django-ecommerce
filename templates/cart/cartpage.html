@@ -8,6 +8,13 @@
 
 <div class = "row">
 	<div class = "col-sm-8 col-sm-offset-2">
+
+	{% if empty %}
+
+	<h1>{{message}}</h1>
+
+	{% else %}
+
 		<table class = 'table'>
 		<thead>
 			<th>Item</th>
@@ -24,6 +31,7 @@
 		<td>{{item.price}}</td><td><a href = '{% url "update_cart" item.slug %}'>Remove</a></td></tr>
 		{% endfor %}
 		</table>
+	{% endif %}
 	</div>
 </div>
 

@@ -7,14 +7,29 @@ from products.models import Product
 
 def cartview(request):
 
-    cart_items = cart.objects.all()[0]
-    context = {'cart_items': cart_items}
+    try:
+        the_id = request.session['cart_id']
+    except:
+        the_id = None
+    if the_id:
+        cart_items = cart.objects.get(id=the_id)
+        context = {'cart_items': cart_items}
+    else:
+        message = "There are no items in the cart currently"
+        context = {'message': message, 'empty': True}
     template = 'cart/cartpage.html'
     return render(request, template, context)
 
 
 def update_cart(request, slug):
-    cart_items = cart.objects.all()[0]
+    try:
+        the_id = request.session['cart_id']
+    except:
+        new_cart = cart()
+        new_cart.save()
+        request.session['cart_id'] = new_cart.id
+        the_id = new_cart.id
+    cart_items = cart.objects.get(id=the_id)
     try:
         product = Product.objects.get(slug=slug)
     except:
