@@ -19,6 +19,7 @@
 		<thead>
 			<th>Item</th>
 			<th>Price</th>
+			<th>Qty</th>
 		</thead>
 		<tfoot>
 		<tr>
@@ -26,9 +27,9 @@
 		<td>Total: {{ cart_items.total }}</td>
 		</tr>
 		</tfoot>
-		{% for item in cart_items.products.all %}
+		{% for item in cart_items.cartitem_set.all %}
 		<tr><td>{{item}}</td>
-		<td>{{item.price}}</td><td><a href = '{% url "update_cart" item.slug %}'>Remove</a></td></tr>
+		<td>{{item.product.price}}</td><td>{{item.quantity}}</td><td><a href = '{% url "update_cart" item.slug %}'>Remove</a></td></tr>
 		{% endfor %}
 		</table>
 	{% endif %}

@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from .models import cart
+from .models import cart, cartitem
 # Create your views here.
 from products.models import Product
 
@@ -22,6 +22,7 @@ def cartview(request):
 
 
 def update_cart(request, slug):
+    request.session.set_expiry(12000)
     try:
         the_id = request.session['cart_id']
     except:
@@ -29,18 +30,19 @@ def update_cart(request, slug):
         new_cart.save()
         request.session['cart_id'] = new_cart.id
         the_id = new_cart.id
-    cart_items = cart.objects.get(id=the_id)
+    cart_objs = cart.objects.get(id=the_id)
     try:
         product = Product.objects.get(slug=slug)
     except:
         pass
-    if product not in cart_items.products.all():
-        cart_items.products.add(product)
-    else:
-        cart_items.products.remove(product)
+    cart_items, created = cartitem.objects.get_or_create(cart=cart_objs, product=product)
+    if created:
+        print "NEW cartitem object created"
     new_total = 0.00
-    for item in cart_items.products.all():
-        new_total += float(item.price)
-    cart_items.total = new_total
-    cart_items.save()
+    for item in cart_objs.cartitem_set.all():
+        line_total = float(item.product.price) * item.quantity
+        new_total += line_total
+    cart_objs.total = new_total
+    request.session['cart_total'] = cart_objs.cartitem_set.count()
+    cart_objs.save()
     return HttpResponseRedirect(reverse("cartview"))

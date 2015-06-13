@@ -23,6 +23,7 @@
 				<img class='img-responsive' src="{{ MEDIA_URL }}{{ img.image }}" />
 		</div>
   		{% endif %}
+  		
 {% endfor %}
 	<div class='col-sm-8'>
 	 <h1>{{ single_product.title }} <a href='{% url "update_cart" single_product.slug %}' class='pull-right'>Add to Cart</a></h1>

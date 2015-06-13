@@ -22,6 +22,16 @@ SECRET_KEY = 'yp@$3h(ycy2^3&#f#di0t$)3@scqpfuu2^*=y_@f)qg)qn9ni*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.request",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.core.context_processors.tz",
+    "django.contrib.messages.context_processors.messages")
+
 TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
